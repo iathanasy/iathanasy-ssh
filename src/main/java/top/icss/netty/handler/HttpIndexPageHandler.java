@@ -23,6 +23,7 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
  * @since 1.0.0
  */
 @Slf4j
+@ChannelHandler.Sharable
 public class HttpIndexPageHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
 
     public static final String HTTP_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss zzz";

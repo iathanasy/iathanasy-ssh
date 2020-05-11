@@ -5,6 +5,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.util.concurrent.DefaultThreadFactory;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -17,10 +18,13 @@ import lombok.extern.slf4j.Slf4j;
 public class WebSocketServer {
 
     private int port=5891;
+    private int cpuNum = Runtime.getRuntime().availableProcessors();
 
-    final NioEventLoopGroup boss = new NioEventLoopGroup();
-    final EventLoopGroup work = new NioEventLoopGroup();
+    final NioEventLoopGroup boss = new NioEventLoopGroup(1);
+    final EventLoopGroup work = new NioEventLoopGroup(cpuNum * 2);
 
+    //业务线程池
+    final EventLoopGroup biz = new NioEventLoopGroup(cpuNum,new DefaultThreadFactory("biz"));
     /**
      * 启动
      * @throws Exception
@@ -31,7 +35,7 @@ public class WebSocketServer {
         b.group(boss, work)
                 .channel(NioServerSocketChannel.class)
                 .option(ChannelOption.SO_BACKLOG, 1024)
-                .childHandler(new WebSocketServerInitializer());
+                .childHandler(new WebSocketServerInitializer(biz));
 
         b.bind(port).sync().addListeners((future)->{
             if(future.isSuccess()){

@@ -38,5 +38,8 @@ public class UrlTest {
         System.out.println(4 << 8 | 220);
         System.out.println(5 << 8 | 220);
         System.out.println(6 << 8 | 220);
+
+       int threadNum = Runtime.getRuntime().availableProcessors();
+        System.out.println(threadNum);
     }
 }

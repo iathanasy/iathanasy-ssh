@@ -13,5 +13,6 @@ public class SshApplication {
     public static void main(String[] args) throws Exception {
         WebSocketServer webSocketServer = new WebSocketServer();
         webSocketServer.start();
+       
     }
 }

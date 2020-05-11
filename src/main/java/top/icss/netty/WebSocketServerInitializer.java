@@ -2,6 +2,7 @@ package top.icss.netty;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
@@ -20,13 +21,19 @@ import top.icss.netty.handler.WebSocketServerHandler;
 public class WebSocketServerInitializer extends ChannelInitializer<SocketChannel> {
 
     private final String websocketPath = "/websocket";
+    private EventLoopGroup biz;
+
+    private WebSocketServerInitializer(){}
+    public WebSocketServerInitializer(EventLoopGroup biz) {
+        this.biz = biz;
+    }
 
     @Override
     protected void initChannel(SocketChannel channel) throws Exception {
         ChannelPipeline p = channel.pipeline();
         p.addLast(new HttpServerCodec());
         //分段聚合
-        p.addLast(new HttpObjectAggregator(1024*64));
+        p.addLast(new HttpObjectAggregator(1024 * 64));
         //分块
         p.addLast(new ChunkedWriteHandler());
 
@@ -35,9 +42,9 @@ public class WebSocketServerInitializer extends ChannelInitializer<SocketChannel
         //websocket
         p.addLast(new WebSocketServerProtocolHandler(websocketPath));
         //授权
-        p.addLast(new WebSocketServerAuthHandler());
+        p.addLast(biz, new WebSocketServerAuthHandler());
         //业务
-        p.addLast(new WebSocketServerHandler());
+        p.addLast(biz, new WebSocketServerHandler());
 
     }
 }
