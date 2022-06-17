@@ -13,7 +13,7 @@
         <java.version>1.8</java.version>
         <netty.version>4.1.42.Final</netty.version>
         <lombok.version>1.18.12</lombok.version>
-        <fastjson.version>1.2.29</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <jsch.version>0.1.54</jsch.version>
         <ganymed-ssh2.version>build210</ganymed-ssh2.version>
     </properties>
