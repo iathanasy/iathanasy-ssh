@@ -203,7 +203,6 @@ public class XtermServiceImpl implements XtermService, SmartInitializingSingleto
             int i = 0;
             //如果没有数据来，线程会一直阻塞在这个地方等待数据。
             while ((i = inputStream.read(buffer)) != -1) {
-                System.err.println("available: " + inputStream.available() +" i: " + i);
                 sendMessage(webSocketSession, Arrays.copyOfRange(buffer, 0, i));
             }
         } finally {
