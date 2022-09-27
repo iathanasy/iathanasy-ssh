@@ -1,8 +1,5 @@
 package top.icss.test;
 
-import io.netty.util.internal.SystemPropertyUtil;
-
-import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.regex.Pattern;
@@ -19,13 +16,11 @@ public class UrlTest {
 
     public static void main(String[] args) throws URISyntaxException {
         //项目根路径
-        String str = SystemPropertyUtil.get("user.dir") + File.separator;
-        System.out.println(str);
 
-        String path = ClassLoader.getSystemResource("index.html").getPath();
+        String path = ClassLoader.getSystemResource("static/index1111.html").getPath();
         System.out.println(path);
 
-        URL resource = ClassLoader.getSystemClassLoader().getResource("index.html");
+        URL resource = ClassLoader.getSystemClassLoader().getResource("static/index1111.html");
         System.out.println(resource.toURI());
         String uri = "////css//xterm.css";
         uri = uri.replaceAll("/+","/");
