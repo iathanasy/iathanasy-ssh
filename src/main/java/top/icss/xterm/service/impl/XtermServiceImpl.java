@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import top.icss.xterm.constants.JSchConnectInfo;
@@ -18,7 +17,6 @@ import top.icss.xterm.entity.XtermCommandData;
 import top.icss.xterm.service.XtermService;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -37,7 +35,6 @@ public class XtermServiceImpl implements XtermService, SmartInitializingSingleto
      */
     private final Map<String, JSchConnectInfo> xtermConnectInfoMap = new ConcurrentHashMap<>(16);
 
-    private static String  DEFAULT_CHART="UTF-8";
     private ThreadPoolExecutor workerExecutor;
 
     /**
