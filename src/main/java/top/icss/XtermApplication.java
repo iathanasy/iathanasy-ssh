@@ -33,4 +33,8 @@ public class XtermApplication {
  "operate": "command",
  "command": "pwd"
  }
+ {
+ "operate": "command",
+ "command": "\r"
+ }
  */
